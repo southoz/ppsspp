@@ -25,6 +25,21 @@ If you want to download regularly updated builds for Android, Windows x86 and x6
 
 For game compatibility, see [community compatibility feedback](https://report.ppsspp.org/games).
 
+Compile instructions for OGA and clones (64 bit Ubuntu environment)
+===================================================================
+```bash
+sudo apt-get install libx11-dev libsm-dev libxext-dev git cmake mercurial libudev-dev libdrm-dev zlib1g-dev pkg-config libasound2-dev libfreetype6-dev libx11-xcb1 libxcb-dri2-0
+cd ~
+git clone https://github.com/southoz/ppsspp.git --recursive
+cd ppsspp/ffmpeg
+./linux_arm64.sh
+cd ..
+mkdir build && cd build
+cmake -DUSING_EGL=OFF -DUSING_GLES2=ON -DUSE_FFMPEG=YES -DUSE_SYSTEM_FFMPEG=NO ../.
+make -j3
+strip PPSSPPSDL
+```
+
 What's new in 1.11.3
 ====================
 * Fix for graphics glitches in the on-screen keyboard
