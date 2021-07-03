@@ -55,6 +55,7 @@ private:
 	UI::Choice *displayEditor_;
 	UI::Choice *backgroundChoice_ = nullptr;
 	UI::PopupMultiChoice *resolutionChoice_;
+        UI::PopupMultiChoice *maxFps_;
 	UI::CheckBox *frameSkipAuto_;
 	SettingInfoMessage *settingInfo_;
 #ifdef _WIN32
@@ -96,6 +97,7 @@ private:
 	UI::EventReturn OnFullscreenChange(UI::EventParams &e);
 	UI::EventReturn OnDisplayLayoutEditor(UI::EventParams &e);
 	UI::EventReturn OnResolutionChange(UI::EventParams &e);
+	UI::EventReturn OnForceMaxEmulatedFPS(UI::EventParams &e);
 	UI::EventReturn OnHwScaleChange(UI::EventParams &e);
 	UI::EventReturn OnRestoreDefaultSettings(UI::EventParams &e);
 	UI::EventReturn OnRenderingMode(UI::EventParams &e);
@@ -124,7 +126,8 @@ private:
 	UI::EventReturn OnSysInfo(UI::EventParams &e);
 
 	// Temporaries to convert setting types, cache enabled, etc.
-	int iAlternateSpeedPercent1_;
+	int maxFpsChoice;
+        int iAlternateSpeedPercent1_;
 	int iAlternateSpeedPercent2_;
 	int prevInflightFrames_;
 	bool enableReports_;

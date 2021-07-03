@@ -197,6 +197,7 @@ public:
 	bool bTexHardwareScaling;
 	int iFpsLimit1;
 	int iFpsLimit2;
+	int iForceMaxEmulatedFPS;
 	int iMaxRecent;
 	int iCurrentStateSlot;
 	int iRewindFlipFrequency;

@@ -437,6 +437,11 @@ namespace SaveState
 		g_Config.iCurrentStateSlot = (g_Config.iCurrentStateSlot + 1) % NUM_SLOTS;
 	}
 
+	void PreviousSlot()
+	{
+		g_Config.iCurrentStateSlot = (g_Config.iCurrentStateSlot - 1 + NUM_SLOTS) % NUM_SLOTS;
+	}
+
 	void LoadSlot(const Path &gameFilename, int slot, Callback callback, void *cbUserData)
 	{
 		Path fn = GenerateSaveSlotFilename(gameFilename, slot, STATE_EXTENSION);

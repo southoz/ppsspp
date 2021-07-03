@@ -613,13 +613,13 @@ int main(int argc, char *argv[]) {
 #endif
 
 	if (mode & SDL_WINDOW_FULLSCREEN_DESKTOP) {
-		pixel_xres = g_DesktopWidth;
-		pixel_yres = g_DesktopHeight;
+		pixel_xres = 320;
+		pixel_yres = 240;
 		g_Config.bFullScreen = true;
 	} else {
 		// set a sensible default resolution (2x)
-		pixel_xres = 480 * 2 * set_scale;
-		pixel_yres = 272 * 2 * set_scale;
+		pixel_xres = 320;
+		pixel_yres = 240;
 		if (portrait) {
 			std::swap(pixel_xres, pixel_yres);
 		}
@@ -734,9 +734,7 @@ int main(int argc, char *argv[]) {
 		printf("Init from thread error: '%s'\n", error_message.c_str());
 	}
 
-#ifdef MOBILE_DEVICE
 	SDL_ShowCursor(SDL_DISABLE);
-#endif
 
 	if (!useEmuThread) {
 		NativeInitGraphics(graphicsContext);
@@ -823,13 +821,6 @@ int main(int argc, char *argv[]) {
 
 					// Set variable here in case fullscreen was toggled by hotkey
 					g_Config.bFullScreen = fullscreen;
-
-					// Hide/Show cursor correctly toggling fullscreen
-					if (lastUIState == UISTATE_INGAME && fullscreen && !g_Config.bShowTouchControls) {
-						SDL_ShowCursor(SDL_DISABLE);
-					} else if (lastUIState != UISTATE_INGAME || !fullscreen) {
-						SDL_ShowCursor(SDL_ENABLE);
-					}
 					break;
 				}
 
@@ -1089,15 +1080,6 @@ int main(int argc, char *argv[]) {
 		}
 		if (g_QuitRequested)
 			break;
-#if !defined(MOBILE_DEVICE)
-		if (lastUIState != GetUIState()) {
-			lastUIState = GetUIState();
-			if (lastUIState == UISTATE_INGAME && g_Config.bFullScreen && !g_Config.bShowTouchControls)
-				SDL_ShowCursor(SDL_DISABLE);
-			if (lastUIState != UISTATE_INGAME || !g_Config.bFullScreen)
-				SDL_ShowCursor(SDL_ENABLE);
-		}
-#endif
 
 		// Disabled by default, needs a workaround to map to psp keys.
 		if (g_Config.bMouseControl) {

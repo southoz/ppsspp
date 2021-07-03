@@ -316,7 +316,7 @@ bool MediaEngine::openContext(bool keepReadPos) {
 	}
 	av_dict_free(&open_opt);
 
-	if (!SetupStreams()) {
+	if (true) {
 		// Fallback to old behavior.  Reads too much and corrupts when game doesn't read fast enough.
 		// SetupStreams sometimes work for newer FFmpeg 3.1+ now, but sometimes framerate is missing.
 		WARN_LOG_REPORT_ONCE(setupStreams, ME, "Failed to read valid video stream data from header");
