@@ -869,52 +869,51 @@ void EmuScreen::pspKey(int pspKeyCode, int flags) {
 			__CtrlButtonDown(pspKeyCode);
 		if (flags & KEY_UP)
 			__CtrlButtonUp(pspKeyCode);
-
-		/* batocera hotkeys
-		int buttons = __CtrlPeekButtons();
-		if(batocera_hotkey == 1 || (buttons & CTRL_SELECT) == CTRL_SELECT) {
-		  if((buttons & CTRL_CROSS) == CTRL_CROSS) {
-		    batocera_hotkey = 0;        // disable, because in case of menu, the down is not got
-		    __CtrlButtonUp(CTRL_CROSS); // disable, because in case of menu, the down is not got
-		    pauseTrigger_ = true;
-		  }
-		  if((buttons & CTRL_START) == CTRL_START) {
-		     System_SendMessage("event", "exitprogram");
-		     // Request the framework to exit cleanly.
-		     System_SendMessage("finish", "");
-		     // However, let's make sure the config was saved, since it may not have been.
-		     g_Config.Save("EmuScreen::pspKey");
-		  }
-		  if((buttons & CTRL_LEFT) == CTRL_LEFT) {
-		    if (SaveState::CanRewind()) {
-		      SaveState::Rewind(&AfterSaveStateAction);
-		    } else {
-		      auto sc = GetI18NCategory("Screen");
-		      osm.Show(sc->T("norewind", "No rewind save states available"), 2.0);
-		    }
-		  }
-		  if((buttons & CTRL_RIGHT) == CTRL_RIGHT) {
-		    batocera_unthrottle = 1;
-		    if (coreState == CORE_STEPPING) {
-		      Core_EnableStepping(false);
-		    }
-		    PSP_CoreParameter().unthrottle = true;
-		  }
-		  if((buttons & CTRL_SQUARE) == CTRL_SQUARE) {
-		    SaveState::SaveSlot(gamePath_, g_Config.iCurrentStateSlot, &AfterSaveStateAction);
-		  }
-		  if((buttons & CTRL_TRIANGLE) == CTRL_TRIANGLE) {
-		    SaveState::LoadSlot(gamePath_, g_Config.iCurrentStateSlot, &AfterSaveStateAction);
-		  }
-		  if((buttons & CTRL_UP) == CTRL_UP) {
-		    SaveState::NextSlot();
-		    NativeMessageReceived("savestate_displayslot", "");
-		  }
-		  if((buttons & CTRL_DOWN) == CTRL_DOWN) {
-		    SaveState::PreviousSlot();
-		    NativeMessageReceived("savestate_displayslot", "");
-		  }
-		} */
+                // batocera hotkeys
+                int buttons = __CtrlPeekButtons();
+                if(batocera_hotkey == 1 || (buttons & CTRL_SELECT) == CTRL_SELECT) {
+                  if((buttons & CTRL_TRIANGLE) == CTRL_TRIANGLE) {
+                    batocera_hotkey = 0;        // disable, because in case of menu, the down is not got
+                    __CtrlButtonUp(CTRL_TRIANGLE); // disable, because in case of menu, the down is not got
+                    pauseTrigger_ = true;
+                  }
+                  if((buttons & CTRL_START) == CTRL_START) {
+                     System_SendMessage("event", "exitprogram");
+                     // Request the framework to exit cleanly.
+                     System_SendMessage("finish", "");
+                     // However, let's make sure the config was saved, since it may not have been.
+                     g_Config.Save("EmuScreen::pspKey");
+                  }
+                  if((buttons & CTRL_LTRIGGER) == CTRL_LTRIGGER) {
+                    if (SaveState::CanRewind()) {
+                      SaveState::Rewind(&AfterSaveStateAction);
+                    } else {
+                      auto sc = GetI18NCategory("Screen");
+                      osm.Show(sc->T("norewind", "No rewind save states available"), 2.0);
+                    }
+                  }
+                  if((buttons & CTRL_RTRIGGER) == CTRL_RTRIGGER) {
+                    batocera_unthrottle = 1;
+                    if (coreState == CORE_STEPPING) {
+                      Core_EnableStepping(false);
+                    }
+                    PSP_CoreParameter().unthrottle = true;
+                  }
+                  if((buttons & CTRL_UP) == CTRL_UP) {
+                    SaveState::SaveSlot(gamePath_, g_Config.iCurrentStateSlot, &AfterSaveStateAction);
+                  }
+                  if((buttons & CTRL_DOWN) == CTRL_DOWN) {
+                    SaveState::LoadSlot(gamePath_, g_Config.iCurrentStateSlot, &AfterSaveStateAction);
+                  }
+                  if((buttons & CTRL_CIRCLE) == CTRL_CIRCLE) {
+                    SaveState::NextSlot();
+                    NativeMessageReceived("savestate_displayslot", "");
+                  }
+                  if((buttons & CTRL_CROSS) == CTRL_CROSS) {
+                    SaveState::PreviousSlot();
+                    NativeMessageReceived("savestate_displayslot", "");
+                  }
+                }
 	}
 }
 
